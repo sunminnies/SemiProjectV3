@@ -331,12 +331,5 @@ Copyright © Kakao Corp. All rights reserved.
        <button type="button" id="noagree" class="btn btn-danger">동의하지 않습니다.</button>
    </div> <!-- 버튼들 -->
 </div>
-    <script>
-        $('#okagree').click(function() {
-            if (!$('#agree1').is(':checked') || $('#agree2').is(':checked') == false)
-                 alert('이용약관에 동의해 주세요!');
-//                 agree1.focus();
-            else location.href='/join/checkme.html'; });
 
-        $('#noagree').click(function() { location.href='/index.html'});
-    </script>
+
