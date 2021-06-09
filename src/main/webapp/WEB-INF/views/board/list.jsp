@@ -1,4 +1,14 @@
 <%@ page pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+<%--
+데이터가 너무 많아서 한페이지에 모든것을 출력하기 어려운 경우 페이징을 이용해서 전체 데이터를 일정한 범위로 나누고
+특정 범위의 데이터만 출력하는 것이 효율적임
+
+총 데이터수 : 105, 한페이지당 출력할 게시글 수 : 25
+총 페이지수 : 5
+--%>
 
 <div id="main">
 <div>
@@ -24,152 +34,42 @@
     </div>
 </div> <!-- 검색 & 버튼 -->
 
-    <div class="row">
-        <div class="col-10 offset-1">
-        <table class="table table-striped text-center table-hover">
-            <thead style="background: #dff0d8">
-                <tr>
-                    <th style="width: 7%">번호</th>
-                    <th style="">제목</th>
-                    <th style="width: 12%">작성자</th>
-                    <th style="width: 10%">작성일</th>
-                    <th style="width: 7%">추천</th>
-                    <th style="width: 7%">조회</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="text-danger bg-warning">
-                    <th>공지</th>
-                    <th><span class="badge badge-danger">Hot</span> '다크나이트 라이지즈' 예매권 증정 이벤트 실시!!</th>
-                    <th>운영자</th>
-                    <th>2012.07.15</th>
-                    <th>10</th>
-                    <th>128</th>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td><a href="/board/view">장바구니 멘 시의원 처음 보셨나요?</a></td>
-                    <td>siestageek</td>
-                    <td>2012.02.08</td>
-                    <td>10</td>
-                    <td>128</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>장바구니 멘 시의원 처음 보셨나요?</td>
-                    <td>siestageek</td>
-                    <td>2012.02.08</td>
-                    <td>10</td>
-                    <td>128</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>장바구니 멘 시의원 처음 보셨나요?</td>
-                    <td>siestageek</td>
-                    <td>2012.02.08</td>
-                    <td>10</td>
-                    <td>128</td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>장바구니 멘 시의원 처음 보셨나요?</td>
-                    <td>siestageek</td>
-                    <td>2012.02.08</td>
-                    <td>10</td>
-                    <td>128</td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td>장바구니 멘 시의원 처음 보셨나요?</td>
-                    <td>siestageek</td>
-                    <td>2012.02.08</td>
-                    <td>10</td>
-                    <td>128</td>
-                </tr>
-                <tr>
-                    <td>6</td>
-                    <td>장바구니 멘 시의원 처음 보셨나요?</td>
-                    <td>siestageek</td>
-                    <td>2012.02.08</td>
-                    <td>10</td>
-                    <td>128</td>
-                </tr>
-                <tr>
-                    <td>7</td>
-                    <td>장바구니 멘 시의원 처음 보셨나요?</td>
-                    <td>siestageek</td>
-                    <td>2012.02.08</td>
-                    <td>10</td>
-                    <td>128</td>
-                </tr>
-                <tr>
-                    <td>8</td>
-                    <td>장바구니 멘 시의원 처음 보셨나요?</td>
-                    <td>siestageek</td>
-                    <td>2012.02.08</td>
-                    <td>10</td>
-                    <td>128</td>
-                </tr>
-                <tr>
-                    <td>9</td>
-                    <td>장바구니 멘 시의원 처음 보셨나요?</td>
-                    <td>siestageek</td>
-                    <td>2012.02.08</td>
-                    <td>10</td>
-                    <td>128</td>
-                </tr>
-                <tr>
-                    <td>10</td>
-                    <td>장바구니 멘 시의원 처음 보셨나요?</td>
-                    <td>siestageek</td>
-                    <td>2012.02.08</td>
-                    <td>10</td>
-                    <td>128</td>
-                </tr>
-                <tr>
-                    <td>11</td>
-                    <td>장바구니 멘 시의원 처음 보셨나요?</td>
-                    <td>siestageek</td>
-                    <td>2012.02.08</td>
-                    <td>10</td>
-                    <td>128</td>
-                </tr>
-                <tr>
-                    <td>12</td>
-                    <td>장바구니 멘 시의원 처음 보셨나요?</td>
-                    <td>siestageek</td>
-                    <td>2012.02.08</td>
-                    <td>10</td>
-                    <td>128</td>
-                </tr>
-                <tr>
-                    <td>13</td>
-                    <td>장바구니 멘 시의원 처음 보셨나요?</td>
-                    <td>siestageek</td>
-                    <td>2012.02.08</td>
-                    <td>10</td>
-                    <td>128</td>
-                </tr>
-                <tr>
-                    <td>14</td>
-                    <td>장바구니 멘 시의원 처음 보셨나요?</td>
-                    <td>siestageek</td>
-                    <td>2012.02.08</td>
-                    <td>10</td>
-                    <td>128</td>
-                </tr>
-                <tr>
-                    <td>15</td>
-                    <td>장바구니 멘 시의원 처음 보셨나요?</td>
-                    <td>siestageek</td>
-                    <td>2012.02.08</td>
-                    <td>10</td>
-                    <td>128</td>
-                </tr>
-            </tbody>
-        </table>
-        </div>
-    </div> <!-- table -->
+<div class="row">
+    <div class="col-10 offset-1">
+    <table class="table table-striped text-center table-hover">
+        <thead style="background: #dff0d8">
+            <tr>
+                <th style="width: 7%">번호</th>
+                <th style="">제목</th>
+                <th style="width: 12%">작성자</th>
+                <th style="width: 10%">작성일</th>
+                <th style="width: 7%">추천</th>
+                <th style="width: 7%">조회</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="text-danger bg-warning">
+                <th>공지</th>
+                <th><span class="badge badge-danger">Hot</span> '다크나이트 라이지즈' 예매권 증정 이벤트 실시!!</th>
+                <th>운영자</th>
+                <th>2012.07.15</th>
+                <th>10</th>
+                <th>128</th>
+            </tr>
+            <c:forEach var="bd" items="${bds}">
+            <tr>
+                <td>${bd.bdno}</td>
+                <td><a href="/board/view">${bd.title}</a></td>
+                <td>${bd.userid}</td>
+                <td>${bd.regdate}</td>
+                <td>${bd.thumbup}</td>
+                <td>${bd.views}</td>
+            </tr>
+            </c:forEach>
+        </tbody>
+    </table>
+    </div>
+</div> <!-- table -->
 
     <div class="row">
         <div class="col-12">
