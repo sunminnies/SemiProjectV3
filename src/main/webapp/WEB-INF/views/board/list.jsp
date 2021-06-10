@@ -1,6 +1,7 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%--
 데이터가 너무 많아서 한페이지에 모든것을 출력하기 어려운 경우 페이징을 이용해서 전체 데이터를 일정한 범위로 나누고
@@ -10,9 +11,42 @@
 총 페이지수 : 5
 --%>
 
+<%--
+게시판 네비게이션
+현재 페이지에 따라 보여줄 페이지 블럭을 결정
+ex) 총 페이지수가 27일때
+cp = 1 : 1 2 3 4 5 6 7 8 9 10
+cp = 3 : 1 2 3 4 5 6 7 8 9 10
+cp = 11 : 11 12 13 14 15 16 17 18 19 20
+cp = 17 : 11 12 13 14 15 16 17 18 19 20
+cp = 23 : 21 22 23 24 25 26 27 28 29 30
+cp = 27 : 21 22 23 24 25 26 27
+
+따라서, cp에 따라 페이지 블럭의 시작값을 계산
+startpage = ((cp - 1) / 10) * 10 + 1
+endpage = startpage + 9
+--%>
+
+<fmt:parseNumber var="cp" value="${param.cp}" />
+<fmt:parseNumber var="sp" value="${(cp - 1) / 10}" integerOnly="true" />
+<fmt:parseNumber var="sp" value="${sp * 10 + 1}" />
+<fmt:parseNumber var="ep" value="${sp + 9}" />
+
+<%-- 총 게시물수를 페이지 당 게시물 수로 나눔 : 총 페이지수 --%>
+<fmt:parseNumber var="tp" value="${bdcnt / 30}" integerOnly="true" />
+<c:if test="${bdcnt % 30 gt 0}">
+    <fmt:parseNumber var="tp" value="${tp + 1}" />
+</c:if>
+
+<%-- 글번호 --%>
+<fmt:parseNumber var="snum" value="${bdcnt - (cp-1) * 30}" />
+
+<%-- 페이지링크 --%>
+<c:set var="pglink" value="/board/list?cp=" />
+
 <div id="main">
 <div>
-    <i class="fas fa-comments fa-2x">자유게시판</i>
+    <i class="fas fa-comments fa-2x">자유게시판 ${tp} / ${bdcnt}</i>
     <hr>
 </div> <!-- 페이지 타이틀 -->
 
@@ -26,7 +60,7 @@
                  <option value="contents">내용</option>
              </select> &nbsp;
              <input type="text" name="findkey" id="findkey" class="form-control col-4 border-primary"> &nbsp;
-             <button type="button" class="btn btn-primary" id="findbtn"><i class="fas fa-search"></i></button>
+             <button type="button" class="btn btn-primary" id="findbtn"><i class="fas fa-search"> 검색</i></button>
          </div>
     </div>
     <div class="col-5 text-right">
@@ -58,12 +92,13 @@
             </tr>
             <c:forEach var="bd" items="${bds}">
             <tr>
-                <td>${bd.bdno}</td>
-                <td><a href="/board/view">${bd.title}</a></td>
+                <td>${snum}</td>
+                <td><a href="/board/view?bdno=${bd.bdno}">${bd.title}</a></td>
                 <td>${bd.userid}</td>
-                <td>${bd.regdate}</td>
+                <td>${fn:substring(bd.regdate,0,10)}</td>
                 <td>${bd.thumbup}</td>
                 <td>${bd.views}</td>
+                <c:set var="snum" value="${snum - 1}" />
             </tr>
             </c:forEach>
         </tbody>
@@ -74,30 +109,36 @@
     <div class="row">
         <div class="col-12">
             <ul class="pagination justify-content-center">
-                <li class="page-item disabled"><a href="#" class="page-link">이전</a></li>
-                <li class="page-item active"><a href="#" class="page-link">1</a></li>
-                <li class="page-item"><a href="#" class="page-link">2</a></li>
-                <li class="page-item"><a href="#" class="page-link">3</a></li>
-                <li class="page-item"><a href="#" class="page-link">4</a></li>
-                <li class="page-item"><a href="#" class="page-link">5</a></li>
-                <li class="page-item"><a href="#" class="page-link">6</a></li>
-                <li class="page-item"><a href="#" class="page-link">7</a></li>
-                <li class="page-item"><a href="#" class="page-link">8</a></li>
-                <li class="page-item"><a href="#" class="page-link">9</a></li>
-                <li class="page-item"><a href="#" class="page-link">10</a></li>
-                <li class="page-item"><a href="#" class="page-link">다음</a></li>
+
+                <li class="page-item <c:if test="${cp eq 1}">disabled</c:if>">
+                    <a href="${pglink}${1}" class="page-link">처음</a></li>
+
+                <%-- '이전' 버튼이 작동되어야 할 때는 sp가 11보다 클 때 --%>
+                <li class="page-item <c:if test="${sp lt 11}">disabled</c:if>">
+                    <a href="${pglink}${sp-10}" class="page-link">이전</a></li>
+
+                <%-- 반복문을 이용해서 페이지 링크 생성 --%>
+                <c:forEach var="i" begin="${sp}" end="${ep}" step="1">
+                    <%-- 표시하는 페이지i가 총 페이지 수보다 작거나 같을 동안만 출력 --%>
+                    <c:if test="${i le tp}">
+                    <c:if test="${i eq cp}">
+                    <li class="page-item active"><a href="${pglink}${i}" class="page-link">${i}</a></li>
+                    </c:if>
+                    <c:if test="${i ne cp}">
+                    <li class="page-item"><a href="${pglink}${i}" class="page-link">${i}</a></li>
+                    </c:if>
+                    </c:if>
+                </c:forEach>
+
+                <%-- '다음' 버튼이 작동되어야 할 때는 ep가 tp보다 작을때 --%>
+                <li class="page-item <c:if test="${ep gt tp}">disabled</c:if>">
+                    <a href="${pglink}${sp+10}" class="page-link">다음</a></li>
+
+                <li class="page-item <c:if test="${cp eq tp}">disabled</c:if>">
+                    <a href="${pglink}${tp}" class="page-link">끝</a></li>
+
             </ul>
         </div>
     </div> <!-- pagination -->
 </div>
-          
-    <script>
-    	var newbdbtn = document.getElementById('newbdbtn');
-    	newbdbtn.addEventListener('click', newwrite);
-    	
-    	function newwrite() {
-    		location.href='/board/write';
-    	}
-        /* $('#newbdbtn').click(function() {location.href='/board/write'});
-        $('#joinbtn').click(function() {location.href='/join/agree'}); */
-    </script>
+
