@@ -8,7 +8,9 @@ import sunmin.spring.mvc.utils.FileUpDownUtil;
 import sunmin.spring.mvc.vo.Pds;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service("psrv")
 public class PdsServiceImpl implements PdsService{
@@ -81,11 +83,44 @@ public class PdsServiceImpl implements PdsService{
 
     @Override
     public Pds readOneFname(String pno, String order) {
-        return null;
+        Map<String, String> param = new HashMap<>();
+        param.put("order", "fname"+order);
+        param.put("pno", pno);
+        return pdao.selectOneFname(param);
     }
 
     @Override
     public boolean downCountPds(String pno, String order) {
-        return false;
+        Map<String, String> param = new HashMap<>();
+        param.put("order", "fdown"+order);
+        param.put("pno", pno);
+
+        boolean isDownloaded = false;
+        if (pdao.downCountPds(param) > 0) isDownloaded = true;
+
+        return isDownloaded;
     }
+
+    @Override
+    public void modifyRecmmd(String pno) {
+        pdao.updateRecmmd(pno);
+    }
+
+    @Override
+    public String readPrvpno(String pno) {
+        return pdao.selectPrvpno(pno);
+    }
+
+    @Override
+    public String readNxtpno(String pno) {
+        return pdao.selectNxtpno(pno);
+    }
+
+    @Override
+    public Pds removePds(String pno) {
+        Pds p = pdao.selectOnePds(pno); // 삭제하기 전 파일정보를 알아냄
+        pdao.deletePds(pno); // 해당 게시글 삭제
+        return p;
+    }
+
 }
