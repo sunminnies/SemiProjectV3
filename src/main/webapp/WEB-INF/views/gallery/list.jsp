@@ -1,13 +1,10 @@
 <%@ page pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-      <style>
-          .pushright { float: right }
-          .cdwide { width: 238px }
-          .imgsize { width: 220px; height: 220px; margin-left: 8px; cursor: pointer}
-          .moveright { margin-left: 55px; }
-          .pushdown { margin-bottom: 10px; }
-      </style>
- 
+<c:set var="thumbURL" value="http://localhost/thumb/" />
+
  <div id="main">
  <div>
      <i class="fas fa-images fa-2x"> 갤러리</i>
@@ -28,213 +25,29 @@
           </div>
      </div>
      <div class="col-5 text-right">
-          <button type="button" id="newimgbtn" class="btn btn-light"><i class="fas fa-plus-circle"> 사진올리기</i></button>
+          <button type="button" id="newgalbtn" class="btn btn-light"><i class="fas fa-plus-circle"> 사진올리기</i></button>
      </div>
  </div> <!-- 상단버튼 -->
 
  <div class="row">
      <div class="col-12">
          <ul class="list-inline moveright">
+
+             <c:forEach var="g" items="${gals}">
              <li class="list-inline-item pushdown">
                  <div class="card cdwide">
-                     <img src="/img/lovemincho.jpg" class="card-image-top imgsize" onclick="showimg('');">
+                     <img src="${thumbURL}small_${g.gno}_${fn:split(g.fnames,"[/]")[0]}" class="card-image-top imgsize"
+                          onclick="showimg('${g.gno}');">
                      <div class="card-body">
-                     <h5 class="card-title">민트초코</h5>
-                     <p class="card-text"><b>siestageek</b> <span class="pushright">2021-05-21</span></p>
-                     <p class="card-text"> <i class="far fa-eye"></i> 13 <span class="pushright"><i class="far fa-thumbs-up"></i> 5</span></p>
+                     <h5 class="card-title">${g.title}</h5>
+                     <p class="card-text"><b>${g.userid}</b><span class="pushright">${fn:substring(g.regdate,0,10)}</span></p>
+                     <p class="card-text"> <i class="far fa-eye"></i> ${g.views} <span class="pushright">
+                         <i class="far fa-thumbs-up"></i> ${g.thumbup}</span></p>
                      </div>
                  </div>
              </li>
-             <li class="list-inline-item">
-                 <div class="card cdwide">
-                     <img src="/img/lovemincho.jpg" class="card-image-top imgsize">
-                     <div class="card-body">
-                     <h5 class="card-title">민트초코</h5>
-                     <p class="card-text"><b>siestageek</b> <span class="pushright">2021-05-21</span></p>
-                     <p class="card-text"> <i class="far fa-eye"></i> 13 <span class="pushright"><i class="far fa-thumbs-up"></i> 5</span></p>
-                     </div>
-                 </div>
-             </li>
-             <li class="list-inline-item">
-                 <div class="card cdwide">
-                     <img src="/img/lovemincho.jpg" class="card-image-top imgsize">
-                     <div class="card-body">
-                     <h5 class="card-title">민트초코</h5>
-                     <p class="card-text"><b>siestageek</b> <span class="pushright">2021-05-21</span></p>
-                     <p class="card-text"> <i class="far fa-eye"></i> 13 <span class="pushright"><i class="far fa-thumbs-up"></i> 5</span></p>
-                     </div>
-                 </div>
-             </li>
-             <li class="list-inline-item">
-                 <div class="card cdwide">
-                     <img src="/img/lovemincho.jpg" class="card-image-top imgsize">
-                     <div class="card-body">
-                     <h5 class="card-title">민트초코</h5>
-                     <p class="card-text"><b>siestageek</b> <span class="pushright">2021-05-21</span></p>
-                     <p class="card-text"> <i class="far fa-eye"></i> 13 <span class="pushright"><i class="far fa-thumbs-up"></i> 5</span></p>
-                     </div>
-                 </div>
-             </li>
-             <li class="list-inline-item pushdown">
-                 <div class="card cdwide">
-                     <img src="/img/lovemincho.jpg" class="card-image-top imgsize">
-                     <div class="card-body">
-                     <h5 class="card-title">민트초코</h5>
-                     <p class="card-text"><b>siestageek</b> <span class="pushright">2021-05-21</span></p>
-                     <p class="card-text"> <i class="far fa-eye"></i> 13 <span class="pushright"><i class="far fa-thumbs-up"></i> 5</span></p>
-                     </div>
-                 </div>
-             </li>
-             <li class="list-inline-item">
-                 <div class="card cdwide">
-                     <img src="/img/lovemincho.jpg" class="card-image-top imgsize">
-                     <div class="card-body">
-                     <h5 class="card-title">민트초코</h5>
-                     <p class="card-text"><b>siestageek</b> <span class="pushright">2021-05-21</span></p>
-                     <p class="card-text"> <i class="far fa-eye"></i> 13 <span class="pushright"><i class="far fa-thumbs-up"></i> 5</span></p>
-                     </div>
-                 </div>
-             </li>
-             <li class="list-inline-item">
-                 <div class="card cdwide">
-                     <img src="/img/lovemincho.jpg" class="card-image-top imgsize">
-                     <div class="card-body">
-                     <h5 class="card-title">민트초코</h5>
-                     <p class="card-text"><b>siestageek</b> <span class="pushright">2021-05-21</span></p>
-                     <p class="card-text"> <i class="far fa-eye"></i> 13 <span class="pushright"><i class="far fa-thumbs-up"></i> 5</span></p>
-                     </div>
-                 </div>
-             </li>
-             <li class="list-inline-item">
-                 <div class="card cdwide">
-                     <img src="/img/lovemincho.jpg" class="card-image-top imgsize">
-                     <div class="card-body">
-                     <h5 class="card-title">민트초코</h5>
-                     <p class="card-text"><b>siestageek</b> <span class="pushright">2021-05-21</span></p>
-                     <p class="card-text"> <i class="far fa-eye"></i> 13 <span class="pushright"><i class="far fa-thumbs-up"></i> 5</span></p>
-                     </div>
-                 </div>
-             </li>
-             <li class="list-inline-item">
-                 <div class="card cdwide">
-                     <img src="/img/lovemincho.jpg" class="card-image-top imgsize">
-                     <div class="card-body">
-                     <h5 class="card-title">민트초코</h5>
-                     <p class="card-text"><b>siestageek</b> <span class="pushright">2021-05-21</span></p>
-                     <p class="card-text"> <i class="far fa-eye"></i> 13 <span class="pushright"><i class="far fa-thumbs-up"></i> 5</span></p>
-                     </div>
-                 </div>
-             </li>
-             <li class="list-inline-item">
-                 <div class="card cdwide">
-                     <img src="/img/lovemincho.jpg" class="card-image-top imgsize">
-                     <div class="card-body">
-                     <h5 class="card-title">민트초코</h5>
-                     <p class="card-text"><b>siestageek</b> <span class="pushright">2021-05-21</span></p>
-                     <p class="card-text"> <i class="far fa-eye"></i> 13 <span class="pushright"><i class="far fa-thumbs-up"></i> 5</span></p>
-                     </div>
-                 </div>
-             </li>
-             <li class="list-inline-item">
-                 <div class="card cdwide">
-                     <img src="/img/lovemincho.jpg" class="card-image-top imgsize">
-                     <div class="card-body">
-                     <h5 class="card-title">민트초코</h5>
-                     <p class="card-text"><b>siestageek</b> <span class="pushright">2021-05-21</span></p>
-                     <p class="card-text"> <i class="far fa-eye"></i> 13 <span class="pushright"><i class="far fa-thumbs-up"></i> 5</span></p>
-                     </div>
-                 </div>
-             </li>
-             <li class="list-inline-item">
-                 <div class="card cdwide">
-                     <img src="/img/lovemincho.jpg" class="card-image-top imgsize">
-                     <div class="card-body">
-                     <h5 class="card-title">민트초코</h5>
-                     <p class="card-text"><b>siestageek</b> <span class="pushright">2021-05-21</span></p>
-                     <p class="card-text"> <i class="far fa-eye"></i> 13 <span class="pushright"><i class="far fa-thumbs-up"></i> 5</span></p>
-                     </div>
-                 </div>
-             </li>
-             <li class="list-inline-item">
-                 <div class="card cdwide">
-                     <img src="/img/lovemincho.jpg" class="card-image-top imgsize">
-                     <div class="card-body">
-                     <h5 class="card-title">민트초코</h5>
-                     <p class="card-text"><b>siestageek</b> <span class="pushright">2021-05-21</span></p>
-                     <p class="card-text"> <i class="far fa-eye"></i> 13 <span class="pushright"><i class="far fa-thumbs-up"></i> 5</span></p>
-                     </div>
-                 </div>
-             </li>
-             <li class="list-inline-item">
-                 <div class="card cdwide">
-                     <img src="/img/lovemincho.jpg" class="card-image-top imgsize">
-                     <div class="card-body">
-                     <h5 class="card-title">민트초코</h5>
-                     <p class="card-text"><b>siestageek</b> <span class="pushright">2021-05-21</span></p>
-                     <p class="card-text"> <i class="far fa-eye"></i> 13 <span class="pushright"><i class="far fa-thumbs-up"></i> 5</span></p>
-                     </div>
-                 </div>
-             </li>
-             <li class="list-inline-item">
-                 <div class="card cdwide">
-                     <img src="/img/lovemincho.jpg" class="card-image-top imgsize">
-                     <div class="card-body">
-                     <h5 class="card-title">민트초코</h5>
-                     <p class="card-text"><b>siestageek</b> <span class="pushright">2021-05-21</span></p>
-                     <p class="card-text"> <i class="far fa-eye"></i> 13 <span class="pushright"><i class="far fa-thumbs-up"></i> 5</span></p>
-                     </div>
-                 </div>
-             </li>
-             <li class="list-inline-item">
-                 <div class="card cdwide">
-                     <img src="/img/lovemincho.jpg" class="card-image-top imgsize">
-                     <div class="card-body">
-                     <h5 class="card-title">민트초코</h5>
-                     <p class="card-text"><b>siestageek</b> <span class="pushright">2021-05-21</span></p>
-                     <p class="card-text"> <i class="far fa-eye"></i> 13 <span class="pushright"><i class="far fa-thumbs-up"></i> 5</span></p>
-                     </div>
-                 </div>
-             </li>
-             <li class="list-inline-item">
-                 <div class="card cdwide">
-                     <img src="/img/lovemincho.jpg" class="card-image-top imgsize">
-                     <div class="card-body">
-                     <h5 class="card-title">민트초코</h5>
-                     <p class="card-text"><b>siestageek</b> <span class="pushright">2021-05-21</span></p>
-                     <p class="card-text"> <i class="far fa-eye"></i> 13 <span class="pushright"><i class="far fa-thumbs-up"></i> 5</span></p>
-                     </div>
-                 </div>
-             </li>
-             <li class="list-inline-item">
-                 <div class="card cdwide">
-                     <img src="/img/lovemincho.jpg" class="card-image-top imgsize">
-                     <div class="card-body">
-                     <h5 class="card-title">민트초코</h5>
-                     <p class="card-text"><b>siestageek</b> <span class="pushright">2021-05-21</span></p>
-                     <p class="card-text"> <i class="far fa-eye"></i> 13 <span class="pushright"><i class="far fa-thumbs-up"></i> 5</span></p>
-                     </div>
-                 </div>
-             </li>
-             <li class="list-inline-item">
-                 <div class="card cdwide">
-                     <img src="/img/lovemincho.jpg" class="card-image-top imgsize">
-                     <div class="card-body">
-                     <h5 class="card-title">민트초코</h5>
-                     <p class="card-text"><b>siestageek</b> <span class="pushright">2021-05-21</span></p>
-                     <p class="card-text"> <i class="far fa-eye"></i> 13 <span class="pushright"><i class="far fa-thumbs-up"></i> 5</span></p>
-                     </div>
-                 </div>
-             </li>
-             <li class="list-inline-item">
-                 <div class="card cdwide">
-                     <img src="/img/lovemincho.jpg" class="card-image-top imgsize">
-                     <div class="card-body">
-                     <h5 class="card-title">민트초코</h5>
-                     <p class="card-text"><b>siestageek</b> <span class="pushright">2021-05-21</span></p>
-                     <p class="card-text"> <i class="far fa-eye"></i> 13 <span class="pushright"><i class="far fa-thumbs-up"></i> 5</span></p>
-                     </div>
-                 </div>
-             </li>
+             </c:forEach>
+
          </ul>
 
      </div>
@@ -260,22 +73,4 @@
          </div>
      </div> <!-- pagination -->
 </div> 
-
-    <script>
-    	var newimgbtn = document.getElementById('newimgbtn');
-    	newimgbtn.addEventListener('click', newimg);
-    	
-    	function newimg() {
-    		location.href='/gallery/write';
-    	}
-    	
-        /* $('#newbdbtn').click(function() {location.href='/gallery/write'});
-        $('#joinbtn').click(function() {location.href='/join/agree'}); */
-    </script>
-
-       <script>
-           function showimg(gno) {
-               location.href='/gallery/view';
-           }
-       </script>
 

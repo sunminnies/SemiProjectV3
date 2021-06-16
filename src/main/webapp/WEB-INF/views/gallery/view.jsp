@@ -1,15 +1,12 @@
 <%@ page pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-    <style>
-        .tbbg1 { background: #dff0f8 }
-        .tbbg2 { background: #ccff99 }
-        .tbbg3 { background: #ffffcc }
-        .pushdown { margin-top: 50px }
-        .cmtbg1 { background: yellow; padding: 7px 0 }
-        .cmtbg2 { background: lime; padding: 7px 0 }
-        .pushright { float: right}
-    </style>
-    
+<c:set var="baseURL" value="http://localhost/cdn/" />
+<c:set var="fnames" value="${fn:split(g.fnames,'/')}" />
+<c:set var="fsizes" value="${fn:split(g.fsizes,'/')}" />
+
  <div id="main">
     <div>
         <i class="fas fa-images fa-2x"> 갤러리</i>
@@ -30,33 +27,33 @@
         <div class="row">
             <table class="table col-10 offset-1">
                 <tr class="tbbg1 text-center">
-                    <th colspan="2"><h2>[날씨]"숨이 턱턱".. 전국 곳곳 '폭염경보'</h2></th>
+                    <th colspan="2"><h2>${g.title}</h2></th>
                 </tr>
 
                 <tr class="tbbg2">
-                    <td style="width: 50%">아시아경제</td>
-                    <td class="text-right">2012.07.28 16:02 / 11 / 22</td>
+                    <td style="width: 50%">${g.userid}</td>
+                    <td class="text-right">${g.regdate} / ${g.thumbup} / ${g.views}</td>
                 </tr>
 
                 <tr class="tbbg3">
                     <td colspan="2">
-                        <div><img src="/img/lovemincho.jpg" class="img-fluid"></div>
-                        <div><img src="/img/Isabelle.png" class="img-fluid"></div>
-                        <div><img src="/img/20130125181216_6417.jpg" class="img-fluid"></div>
+                        <c:forEach var="f" items="${fnames}">
+                            <c:set var="pos" value="${fn:indexOf(f, '.')}" />
+                            <c:set var="fname" value="${fn:substring(f, 0, pos)}" />
+                            <c:set var="fext" value="${fn:substring(f, pos+1, fn:length(f))}" />
+                            <div><img src="${baseURL}${fname}${g.uuid}.${fext}" class="img-fluid"></div>
+                        </c:forEach>
                     </td>
                 </tr>
+
+                <%-- 첨부파일 표시 --%>
+                <c:forEach begin="0" end="${fn:length(fnames) - 1}" var="i">
                 <tr>
                     <td colspan="2" class="tbbg4">
-                    <i class="fas fa-file-image"></i> homework.jpg (123KB)</td>
+                    <i class="fas fa-file-image"></i> ${fnames[i]} (${fsizes[i]}KB)</td>
                 </tr>
-                <tr>
-                    <td colspan="2" class="tbbg4">
-                    <i class="fas fa-file-image"></i> homework.gif (456KB)</td>
-                </tr>
-                <tr>
-                    <td colspan="2" class="tbbg4">
-                    <i class="fas fa-file-image"></i> homework.png (789KB)</td>
-                </tr>
+                </c:forEach>
+
             </table>
         </div> <!-- 본문 -->
 

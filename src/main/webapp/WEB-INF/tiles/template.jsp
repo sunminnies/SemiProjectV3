@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 	<!-- user define CSS -->
     <link rel="stylesheet" href="/css/board.css">
+    <link rel="stylesheet" href="/css/gallery.css">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <!-- Font Awesome -->
@@ -67,6 +68,7 @@
     <script src="/js/join.js"></script>
     <script src="/js/board.js"></script>
     <script src="/js/pds.js"></script>
+    <script src="/js/gallery.js"></script>
     <script>
         // board findtype tag setting
         $('#findtype').val('${param.findtype}').prop('selected', 'true');
